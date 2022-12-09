@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoW Character Generator", "WoW Character Generator.csproj", "{71B4AE65-3520-4D09-AD1A-7DB8FE9C1122}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71B4AE65-3520-4D09-AD1A-7DB8FE9C1122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B4AE65-3520-4D09-AD1A-7DB8FE9C1122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B4AE65-3520-4D09-AD1A-7DB8FE9C1122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B4AE65-3520-4D09-AD1A-7DB8FE9C1122}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA8E7C9F-86B6-439C-A4A6-70411E826E91}
+	EndGlobalSection
+EndGlobal
