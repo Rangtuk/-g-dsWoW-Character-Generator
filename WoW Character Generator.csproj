@@ -46,17 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewCharacter.cs" />
-    <Compile Include="GeneratorScreen.cs">
+    <Compile Include="NewCharacter%28LOOKATME%29.cs" />
+    <Compile Include="GeneratorScreen%28LOOKATME%29.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GeneratorScreen.Designer.cs">
-      <DependentUpon>GeneratorScreen.cs</DependentUpon>
+    <Compile Include="GeneratorScreen%28LOOKATME%29.Designer.cs">
+      <DependentUpon>GeneratorScreen%28LOOKATME%29.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="GeneratorScreen.resx">
-      <DependentUpon>GeneratorScreen.cs</DependentUpon>
+    <EmbeddedResource Include="GeneratorScreen%28LOOKATME%29.resx">
+      <DependentUpon>GeneratorScreen%28LOOKATME%29.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
