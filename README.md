@@ -1,8 +1,8 @@
 # WoW Character Generator
 
 // TO SEE MY CODE OPEN THESE FILES, REST ARE PREFAB VIA VISUAL STUDIO //  
-GeneratorScreen.cs
-NewCharacter.cs (class containing most of the mechanics)
+GeneratorScreen.cs  
+NewCharacter.cs (class containing most of the mechanics)  
 // TO SEE MY CODE OPEN THESE FILES, REST ARE PREFAB VIA VISUAL STUDIO //  
   
 Random World of Warcraft character generator by Maloka (J.C.) - WIP  
