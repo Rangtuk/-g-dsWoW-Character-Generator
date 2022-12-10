@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -10,6 +11,24 @@ namespace WoW_Character_Generator
 {
     public class NewCharacter
     {
+        public enum c
+        {
+            None = 0,
+            Warrior = 1 << 0,
+            Hunter = 1 << 1,
+            Rogue = 1 << 2,
+            Mage = 1 << 3,
+            Priest = 1 << 4,
+            Druid = 1 << 5,
+            Warlock = 1 << 6,
+            Paladin = 1 << 7,
+            Shaman = 1 << 8,
+            Death_Knight = 1 << 9,
+            Monk = 1 << 10,
+            Demon_Hunter = 1 << 11,
+            Evoker = 1 << 12
+        }
+
         // Array of all available races
         private readonly string[] Races = { "Human", "Orc", "Dwarf", "Undead", "Gnome", "Troll", "Night Elf", "Tauren", "Draenei", "Blood Elf", "Worgen", "Goblin", "Pandaren (Alliance)", "Pandaren (Horde)", "Void Elf", "Nightborne", "Lightforged Draenei", "Highmountain Tauren", "Dark Iron Dwarf", "Mag'har Orc", "Kul Tiran", "Zandalari Troll", "Mechagnome", "Vulpera", "Dracthyr (Alliance)", "Dracthyr (Horde)" };
         // Array of actual class names and specs
@@ -31,11 +50,11 @@ namespace WoW_Character_Generator
         };
         // Assigned IDs to classes array above
         private readonly string[] ClassIDs = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c" };
-        
+
         private readonly int Xpac;
         private readonly int ClassRange;
         private readonly int RaceRange;
-        
+
         public NewCharacter(int xpac, int classRange, int raceRange)
         {
             this.Xpac = xpac;
@@ -73,7 +92,7 @@ namespace WoW_Character_Generator
         /// <param name="race"></param>
         /// <returns></returns>
         private string ClassSelect(string race)
-        {           
+        {
             var randClass = new Random();
             var validClasses = "";
             var randomClassID = "";
@@ -637,7 +656,7 @@ namespace WoW_Character_Generator
                     selectedSpec = Classes[12][DFDracthyrSpec.Next(0, 1)];
                     break;
                 }
-                randomClassID = ClassIDs[randClass.Next(0,ClassRange)];
+                randomClassID = ClassIDs[randClass.Next(0, ClassRange)];
                 if (validClasses.Contains(randomClassID)) // if ("01234abc".Contains("a"))
                 {
                     var randSpec = new Random();
@@ -650,5 +669,7 @@ namespace WoW_Character_Generator
             }
             return String.Format("{0} {1}", selectedSpec, selectedBaseClass);
         }
+
+
     }
 }

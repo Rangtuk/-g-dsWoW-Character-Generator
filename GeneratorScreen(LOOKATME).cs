@@ -22,10 +22,7 @@ namespace WoW_Character_Generator
         {
             InitializeComponent();
         }
-        private void CharacterGen_Load(object sender, EventArgs e)
-        {
 
-        }
         struct Expansion
         {
             public int XpacID;
