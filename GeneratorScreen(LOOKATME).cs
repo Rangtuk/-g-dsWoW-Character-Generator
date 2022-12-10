@@ -22,98 +22,54 @@ namespace WoW_Character_Generator
         {
             InitializeComponent();
         }
+        private void CharacterGen_Load(object sender, EventArgs e)
+        {
 
+        }
         struct Expansion
         {
             public int XpacID;
             public int RaceRange;
             public int ClassRange;
-            public string XpacName;
             public string Slogan;
-            public Expansion(int ID, int races, int classes, string name, string slogan)
+            public Expansion(int ID, int races, int classes, string slogan)
             {
                 this.XpacID = ID;
                 this.RaceRange = races;
                 this.ClassRange = classes;
-                this.XpacName = name;
                 this.Slogan = slogan;
             }
         }
-        Expansion[] expansions =
+        /// <summary>
+        /// Dictionary implementation courtesy of Te'ja
+        /// </summary>
+        readonly Dictionary<string, Expansion> XpacDict = new Dictionary<string, Expansion>()
         {
-                       //  ID   Races   Classes    Name                       Button Slogan//
-            new Expansion( 0,   0,      0,         "",                        "ERROR"), // DEFAULT/ERROR STRUCT
-            new Expansion( 1,   8,      9,         "Vanilla",                 "Enter the World of Warcraft..."),
-            new Expansion( 2,   10,     9,         "The Burning Crusade",     "You are not prepared!"),
-            new Expansion( 3,   10,     10,        "Wrath of the Lich King",  "Frostmourne hungers..."),
-            new Expansion( 4,   12,     10,        "Cataclysm",               "All life ends in death!"),
-            new Expansion( 5,   14,     11,        "Mists of Pandaria",       "Why do we fight?"),
-            new Expansion( 6,   14,     11,        "Warlords of Draenor",     "We will never be slaves!"),
-            new Expansion( 7,   14,     12,        "Legion",                  "The Burning Legion has returned..."),
-            new Expansion( 8,   24,     12,        "Battle For Azeroth",      "Azeroth needs your help..."),
-            new Expansion( 9,   24,     12,        "Shadowlands",             "Delve into the Shadowlands..."),
-            new Expansion( 10,  26,     13,        "Dragonflight",            "Awaken the Isles!"),
-        };
+            {"Vanilla", new Expansion( 1, 8, 9, "Enter the World of Warcraft...")},
+            {"The Burning Crusade", new Expansion( 2, 10, 9, "You are not prepared!")},
+            {"Wrath of the Lich King", new Expansion( 3, 10, 10, "Frostmourne hungers...")},
+            {"Cataclysm", new Expansion( 4, 12, 10, "All life ends in death!")},
+            {"Mists of Pandaria", new Expansion( 5, 14, 11, "Why do we fight?")},
+            {"Warlords of Draenor", new Expansion( 6, 14, 11, "We will never be slaves!")},
+            {"Legion", new Expansion( 7, 14, 12, "The Burning Legion has returned...")},
+            {"Battle For Azeroth", new Expansion( 8, 24, 12, "Azeroth needs your help...")},
+            {"Shadowlands", new Expansion( 9, 24, 12, "Delve into the Shadowlands...")},
+            {"Dragonflight", new Expansion( 10, 26, 13, "Awaken the Isles!")},
 
+            {"Classic (WotLK)", new Expansion( 3, 10, 10, "Frostmourne hungers...")},
+            {"Retail (Dragonflight)", new Expansion( 10, 26, 13, "Awaken the Isles!")}
+        };
         Expansion currentExpansion;
         private void ExpansionChecked(object sender, EventArgs e)
         {
             var rdoButton = (RadioButton)sender;
             GenerateButton.Enabled = true;
             OutputCharacter.Text = "";
-            // Sets values for selected expansion
-            switch (rdoButton.Text)
-            {
-                #region Blizzard Version
-                case "Classic (WotLK)":
-                    currentExpansion = expansions[1];
-                    break;
-                case "Retail (Dragonflight)":
-                    currentExpansion = expansions[10];
-                    break;
-                #endregion
-                #region XPAC SPECIFIC
-                case "Vanilla":
-                    currentExpansion = expansions[1];
-                    break;
-                case "The Burning Crusade":
-                    currentExpansion = expansions[2];
-                    break;
-                case "Wrath of the Lich King":
-                    currentExpansion = expansions[3];
-                    break;
-                case "Cataclysm":
-                    currentExpansion = expansions[4];
-                    break;
-                case "Mists of Pandaria":
-                    currentExpansion = expansions[5];
-                    break;
-                case "Warlords of Draenor":
-                    currentExpansion = expansions[6];
-                    break;
-                case "Legion":
-                    currentExpansion = expansions[7];
-                    break;
-                case "Battle for Azeroth":
-                    currentExpansion = expansions[8];
-                    break;
-                case "Shadowlands":
-                    currentExpansion = expansions[9];
-                    break;
-                case "Dragonflight":
-                    currentExpansion = expansions[10];
-                    break;
-                #endregion
-                case "Surprise Me!":
-                    var rnd = new Random();
-                    currentExpansion = expansions[rnd.Next(1,expansions.Length)];
-                    break;
-                default:
-                    currentExpansion = expansions[0];
-                    GenerateButton.Enabled = false;
-                    MessageBox.Show("An error has occured. Please select different expansion (and tell Maloka that something broke!)");
-                    break;
-            }
+            // Sets values for selected expansion or selects random expansion
+            if (rdoButton.Text == "Surprise Me!")
+                currentExpansion = XpacDict[GetRandomXpac()];
+            else
+                currentExpansion = XpacDict[rdoButton.Text];
             GenerateButton.Text = currentExpansion.Slogan;
         }
 
@@ -133,7 +89,11 @@ namespace WoW_Character_Generator
                 newCharacter = character.CharacterSelect();
             OutputCharacter.Text = newCharacter;
         }
-
+        private string GetRandomXpac()
+        {
+            var keyList = new List<string>(XpacDict.Keys);
+            var rnd = new Random();
+            return keyList[rnd.Next(0, keyList.Count)];
+        }
     }
-
 }
