@@ -2,6 +2,9 @@
  * Programmer: J. C. (Maloka Blacktusk)
  * Version 1.0
  * Description: Specific xpac selection functionality
+ *****************************************************
+ * Version 1.1
+ * Description: Encapsulation of NewCharacter code.
  */
 using System;
 using System.Collections.Generic;
@@ -24,7 +27,7 @@ namespace WoW_Character_Generator
             InitializeComponent();
         }
 
-        readonly NewCharacter character = new NewCharacter();
+        NewCharacter character = new NewCharacter();
         NewCharacter.Expansion currentExpansion;
 
         private void ExpansionChecked(object sender, EventArgs e)
@@ -50,10 +53,9 @@ namespace WoW_Character_Generator
             if (currentExpansion.XpacID == 0)
                 throw new Exception("Error! Expansion not selected.");
             OutputCharacter.Text = "";
-            var TEMP = new NewCharacter();
-            var newCharacter = TEMP.CharacterSelect();
-            if (newCharacter == OutputCharacter.Text) // To help prevent repeats, runs again if output matches last character
-                newCharacter = TEMP.CharacterSelect();
+            var newCharacter = character.CharacterSelect();
+            if (newCharacter == OutputCharacter.Text) // To help prevent repeats, runs again if output matches last generation
+                newCharacter = character.CharacterSelect();
             OutputCharacter.Text = newCharacter;
         }
 

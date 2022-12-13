@@ -25,10 +25,24 @@ namespace WoW_Character_Generator
                 this.Slogan = slogan;
             }
         }
-        /// <summary>
-        /// Dictionary implementation courtesy of Te'ja
-        /// </summary>
-        public Dictionary<string, Expansion> XpacDict { get; set; }
+
+        // Dictionary implementation courtesy of Te'ja
+        public Dictionary<string, Expansion> XpacDict = new Dictionary<string, Expansion>()
+            {
+                {"Vanilla", new Expansion( 1, 8, 9, "Enter the World of Warcraft...")},
+                {"The Burning Crusade", new Expansion( 2, 10, 9, "You are not prepared!")},
+                {"Wrath of the Lich King", new Expansion( 3, 10, 10, "Frostmourne hungers...")},
+                {"Cataclysm", new Expansion( 4, 12, 10, "All life ends in death!")},
+                {"Mists of Pandaria", new Expansion( 5, 14, 11, "Why do we fight?")},
+                {"Warlords of Draenor", new Expansion( 6, 14, 11, "We will never be slaves!")},
+                {"Legion", new Expansion( 7, 14, 12, "The Burning Legion has returned...")},
+                {"Battle For Azeroth", new Expansion( 8, 24, 12, "Azeroth needs your help...")},
+                {"Shadowlands", new Expansion( 9, 24, 12, "Delve into the Shadowlands...")},
+                {"Dragonflight", new Expansion( 10, 26, 13, "Awaken the Isles!")},
+
+                {"Classic (WotLK)", new Expansion( 3, 10, 10, "Frostmourne hungers...")},
+                {"Retail (Dragonflight)", new Expansion( 10, 26, 13, "Awaken the Isles!")}
+            };
 
         /// <summary>
         /// Gets set expansion from provided button text
@@ -50,39 +64,15 @@ namespace WoW_Character_Generator
             var rnd = new Random();
             return XpacDict[keyList[rnd.Next(0, keyList.Count)]];
         }
-
+        
         /// <summary>
         /// Constructor
         /// </summary>
         public NewCharacter()
         {
-            this.XpacDict = new Dictionary<string, Expansion>()
-            {
-                {"Vanilla", new Expansion( 1, 8, 9, "Enter the World of Warcraft...")},
-                {"The Burning Crusade", new Expansion( 2, 10, 9, "You are not prepared!")},
-                {"Wrath of the Lich King", new Expansion( 3, 10, 10, "Frostmourne hungers...")},
-                {"Cataclysm", new Expansion( 4, 12, 10, "All life ends in death!")},
-                {"Mists of Pandaria", new Expansion( 5, 14, 11, "Why do we fight?")},
-                {"Warlords of Draenor", new Expansion( 6, 14, 11, "We will never be slaves!")},
-                {"Legion", new Expansion( 7, 14, 12, "The Burning Legion has returned...")},
-                {"Battle For Azeroth", new Expansion( 8, 24, 12, "Azeroth needs your help...")},
-                {"Shadowlands", new Expansion( 9, 24, 12, "Delve into the Shadowlands...")},
-                {"Dragonflight", new Expansion( 10, 26, 13, "Awaken the Isles!")},
 
-                {"Classic (WotLK)", new Expansion( 3, 10, 10, "Frostmourne hungers...")},
-                {"Retail (Dragonflight)", new Expansion( 10, 26, 13, "Awaken the Isles!")}
-            };
         }
-        public NewCharacter(int xpac, int classRange, int raceRange)
-        {
-            this.Xpac = xpac;
-            this.ClassRange = classRange;
-            this.RaceRange = raceRange;
-        }
-        private Dictionary<string, Dictionary<Expansion, ClassEnum>> expansionClasses = new Dictionary<string, Dictionary<Expansion, ClassEnum>>()
-        {
 
-        };
         private enum ClassEnum
         {
             None = 0,
@@ -102,10 +92,12 @@ namespace WoW_Character_Generator
         }
         // Array of all available races
         private readonly string[] Races = { "Human", "Orc", "Dwarf", "Undead", "Gnome", "Troll", "Night Elf", "Tauren", "Draenei", "Blood Elf", "Worgen", "Goblin", "Pandaren (Alliance)", "Pandaren (Horde)", "Void Elf", "Nightborne", "Lightforged Draenei", "Highmountain Tauren", "Dark Iron Dwarf", "Mag'har Orc", "Kul Tiran", "Zandalari Troll", "Mechagnome", "Vulpera", "Dracthyr (Alliance)", "Dracthyr (Horde)" };
+
         private readonly Dictionary<string, ClassEnum> ClassMap = new Dictionary<string, ClassEnum>()
         {
             {"Human", ClassEnum.Warrior|ClassEnum.Hunter},
         };
+
         // Array of actual class names and specs
         private readonly string[][] Classes = new string[][]
         {
