@@ -31,14 +31,24 @@ namespace WoW_Character_Generator
         public Dictionary<string, Expansion> XpacDict { get; set; }
 
         /// <summary>
+        /// Gets set expansion from provided button text
+        /// </summary>
+        /// <param name="selectedXpac"></param>
+        /// <returns></returns>
+        public Expansion GetSpecificXpac(string selectedXpac)
+        {
+            return XpacDict[selectedXpac];
+        }
+
+        /// <summary>
         /// Gets random expansion
         /// </summary>
         /// <returns></returns>
-        public string GetRandomXpac()
+        public Expansion GetRandomXpac()
         {
             var keyList = new List<string>(XpacDict.Keys);
             var rnd = new Random();
-            return keyList[rnd.Next(0, keyList.Count)];
+            return XpacDict[keyList[rnd.Next(0, keyList.Count)]];
         }
 
         /// <summary>
@@ -63,6 +73,16 @@ namespace WoW_Character_Generator
                 {"Retail (Dragonflight)", new Expansion( 10, 26, 13, "Awaken the Isles!")}
             };
         }
+        public NewCharacter(int xpac, int classRange, int raceRange)
+        {
+            this.Xpac = xpac;
+            this.ClassRange = classRange;
+            this.RaceRange = raceRange;
+        }
+        private Dictionary<string, Dictionary<Expansion, ClassEnum>> expansionClasses = new Dictionary<string, Dictionary<Expansion, ClassEnum>>()
+        {
+
+        };
         private enum ClassEnum
         {
             None = 0,
@@ -80,9 +100,12 @@ namespace WoW_Character_Generator
             Demon_Hunter = 1 << 11,
             Evoker = 1 << 12
         }
-
         // Array of all available races
         private readonly string[] Races = { "Human", "Orc", "Dwarf", "Undead", "Gnome", "Troll", "Night Elf", "Tauren", "Draenei", "Blood Elf", "Worgen", "Goblin", "Pandaren (Alliance)", "Pandaren (Horde)", "Void Elf", "Nightborne", "Lightforged Draenei", "Highmountain Tauren", "Dark Iron Dwarf", "Mag'har Orc", "Kul Tiran", "Zandalari Troll", "Mechagnome", "Vulpera", "Dracthyr (Alliance)", "Dracthyr (Horde)" };
+        private readonly Dictionary<string, ClassEnum> ClassMap = new Dictionary<string, ClassEnum>()
+        {
+            {"Human", ClassEnum.Warrior|ClassEnum.Hunter},
+        };
         // Array of actual class names and specs
         private readonly string[][] Classes = new string[][]
         {
@@ -107,12 +130,6 @@ namespace WoW_Character_Generator
         private readonly int ClassRange;
         private readonly int RaceRange;
 
-        public NewCharacter(int xpac, int classRange, int raceRange)
-        {
-            this.Xpac = xpac;
-            this.ClassRange = classRange;
-            this.RaceRange = raceRange;
-        }
 
         /// <summary>
         /// Returns selected Race/Class combo
