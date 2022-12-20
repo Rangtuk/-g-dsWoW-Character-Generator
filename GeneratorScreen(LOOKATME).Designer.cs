@@ -35,16 +35,16 @@
             this.rdoMoP = new System.Windows.Forms.RadioButton();
             this.rdoWoD = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdoVersionClassic = new System.Windows.Forms.RadioButton();
+            this.rdoVersionRetail = new System.Windows.Forms.RadioButton();
+            this.rdoRandomXpac = new System.Windows.Forms.RadioButton();
             this.rdoDF = new System.Windows.Forms.RadioButton();
             this.rdoSL = new System.Windows.Forms.RadioButton();
             this.rdoBFA = new System.Windows.Forms.RadioButton();
             this.rdoLegion = new System.Windows.Forms.RadioButton();
-            this.rdoRandomXpac = new System.Windows.Forms.RadioButton();
             this.OutputCharacter = new System.Windows.Forms.TextBox();
             this.GenerateButton = new System.Windows.Forms.Button();
-            this.rdoVersionClassic = new System.Windows.Forms.RadioButton();
-            this.rdoVersionRetail = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnTEST = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -120,6 +120,7 @@
             this.groupBox1.Controls.Add(this.rdoWrath);
             this.groupBox1.Controls.Add(this.rdoVersionRetail);
             this.groupBox1.Controls.Add(this.rdoClassic);
+            this.groupBox1.Controls.Add(this.rdoRandomXpac);
             this.groupBox1.Controls.Add(this.rdoDF);
             this.groupBox1.Controls.Add(this.rdoCata);
             this.groupBox1.Controls.Add(this.rdoTBC);
@@ -134,6 +135,39 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select Expansion";
+            // 
+            // rdoVersionClassic
+            // 
+            this.rdoVersionClassic.AutoSize = true;
+            this.rdoVersionClassic.Location = new System.Drawing.Point(6, 169);
+            this.rdoVersionClassic.Name = "rdoVersionClassic";
+            this.rdoVersionClassic.Size = new System.Drawing.Size(100, 17);
+            this.rdoVersionClassic.TabIndex = 0;
+            this.rdoVersionClassic.Text = "Classic (WotLK)";
+            this.rdoVersionClassic.UseVisualStyleBackColor = true;
+            this.rdoVersionClassic.Click += new System.EventHandler(this.ExpansionChecked);
+            // 
+            // rdoVersionRetail
+            // 
+            this.rdoVersionRetail.AutoSize = true;
+            this.rdoVersionRetail.Location = new System.Drawing.Point(138, 169);
+            this.rdoVersionRetail.Name = "rdoVersionRetail";
+            this.rdoVersionRetail.Size = new System.Drawing.Size(118, 17);
+            this.rdoVersionRetail.TabIndex = 5;
+            this.rdoVersionRetail.Text = "Retail (Dragonflight)";
+            this.rdoVersionRetail.UseVisualStyleBackColor = true;
+            this.rdoVersionRetail.Click += new System.EventHandler(this.ExpansionChecked);
+            // 
+            // rdoRandomXpac
+            // 
+            this.rdoRandomXpac.AutoSize = true;
+            this.rdoRandomXpac.Location = new System.Drawing.Point(58, 143);
+            this.rdoRandomXpac.Name = "rdoRandomXpac";
+            this.rdoRandomXpac.Size = new System.Drawing.Size(114, 17);
+            this.rdoRandomXpac.TabIndex = 10;
+            this.rdoRandomXpac.Text = "Surprise Me! (WIP)";
+            this.rdoRandomXpac.UseVisualStyleBackColor = true;
+            this.rdoRandomXpac.Click += new System.EventHandler(this.ExpansionChecked);
             // 
             // rdoDF
             // 
@@ -179,18 +213,6 @@
             this.rdoLegion.UseVisualStyleBackColor = true;
             this.rdoLegion.Click += new System.EventHandler(this.ExpansionChecked);
             // 
-            // rdoRandomXpac
-            // 
-            this.rdoRandomXpac.AutoSize = true;
-            this.rdoRandomXpac.Enabled = false;
-            this.rdoRandomXpac.Location = new System.Drawing.Point(490, 93);
-            this.rdoRandomXpac.Name = "rdoRandomXpac";
-            this.rdoRandomXpac.Size = new System.Drawing.Size(138, 17);
-            this.rdoRandomXpac.TabIndex = 10;
-            this.rdoRandomXpac.Text = "Surprise Me! (BROKEN)";
-            this.rdoRandomXpac.UseVisualStyleBackColor = true;
-            this.rdoRandomXpac.Click += new System.EventHandler(this.ExpansionChecked);
-            // 
             // OutputCharacter
             // 
             this.OutputCharacter.Font = new System.Drawing.Font("Impact", 30F, System.Drawing.FontStyle.Italic);
@@ -214,39 +236,15 @@
             this.GenerateButton.UseVisualStyleBackColor = true;
             this.GenerateButton.Click += new System.EventHandler(this.GenerateButton_Click);
             // 
-            // rdoVersionClassic
+            // btnTEST
             // 
-            this.rdoVersionClassic.AutoSize = true;
-            this.rdoVersionClassic.Location = new System.Drawing.Point(6, 169);
-            this.rdoVersionClassic.Name = "rdoVersionClassic";
-            this.rdoVersionClassic.Size = new System.Drawing.Size(100, 17);
-            this.rdoVersionClassic.TabIndex = 0;
-            this.rdoVersionClassic.Text = "Classic (WotLK)";
-            this.rdoVersionClassic.UseVisualStyleBackColor = true;
-            this.rdoVersionClassic.Click += new System.EventHandler(this.ExpansionChecked);
-            // 
-            // rdoVersionRetail
-            // 
-            this.rdoVersionRetail.AutoSize = true;
-            this.rdoVersionRetail.Location = new System.Drawing.Point(138, 169);
-            this.rdoVersionRetail.Name = "rdoVersionRetail";
-            this.rdoVersionRetail.Size = new System.Drawing.Size(118, 17);
-            this.rdoVersionRetail.TabIndex = 5;
-            this.rdoVersionRetail.Text = "Retail (Dragonflight)";
-            this.rdoVersionRetail.UseVisualStyleBackColor = true;
-            this.rdoVersionRetail.Click += new System.EventHandler(this.ExpansionChecked);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(490, 115);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(139, 50);
-            this.textBox1.TabIndex = 12;
-            this.textBox1.TabStop = false;
-            this.textBox1.Text = "Randomly selected TBC, picked gnome priest, dunno why";
+            this.btnTEST.Location = new System.Drawing.Point(561, 226);
+            this.btnTEST.Name = "btnTEST";
+            this.btnTEST.Size = new System.Drawing.Size(133, 46);
+            this.btnTEST.TabIndex = 9;
+            this.btnTEST.Text = "TEST";
+            this.btnTEST.UseVisualStyleBackColor = true;
+            this.btnTEST.Click += new System.EventHandler(this.btnTEST_Click);
             // 
             // CharacterGen
             // 
@@ -254,11 +252,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(808, 580);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnTEST);
             this.Controls.Add(this.GenerateButton);
             this.Controls.Add(this.OutputCharacter);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.rdoRandomXpac);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -290,7 +287,7 @@
         private System.Windows.Forms.Button GenerateButton;
         private System.Windows.Forms.RadioButton rdoVersionClassic;
         private System.Windows.Forms.RadioButton rdoVersionRetail;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnTEST;
     }
 }
 

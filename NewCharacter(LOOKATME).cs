@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,6 +12,10 @@ namespace WoW_Character_Generator
 {
     public class NewCharacter
     {
+        /// <summary>
+        /// All done upon selecting radio button, then gets ignored
+        /// </summary>
+        #region Expansion_Selection_Related_Code
         public struct Expansion
         {
             public int XpacID;
@@ -25,7 +30,7 @@ namespace WoW_Character_Generator
                 this.Slogan = slogan;
             }
         }
-
+        public Expansion CurrentXpac;
         // Dictionary implementation courtesy of Te'ja
         public Dictionary<string, Expansion> XpacDict = new Dictionary<string, Expansion>()
             {
@@ -43,60 +48,33 @@ namespace WoW_Character_Generator
                 {"Classic (WotLK)", new Expansion( 3, 10, 10, "Frostmourne hungers...")},
                 {"Retail (Dragonflight)", new Expansion( 10, 26, 13, "Awaken the Isles!")}
             };
-
+        private Expansion selectedExpansion;
         /// <summary>
         /// Gets set expansion from provided button text
         /// </summary>
         /// <param name="selectedXpac"></param>
         /// <returns></returns>
-        public Expansion GetSpecificXpac(string selectedXpac)
+        public Expansion GetXpac(string sentXpac)
         {
-            return XpacDict[selectedXpac];
+            if (sentXpac == "Surprise Me! (WIP)") // Gets Random Xpac
+            {
+                var keyList = new List<string>(XpacDict.Keys);
+                var rnd = new Random();
+                selectedExpansion = XpacDict[keyList[rnd.Next(0, keyList.Count)]];
+            }
+            else // Gets Selected Xpac
+                selectedExpansion = XpacDict[sentXpac];
+            return selectedExpansion;
         }
+        #endregion
 
-        /// <summary>
-        /// Gets random expansion
-        /// </summary>
-        /// <returns></returns>
-        public Expansion GetRandomXpac()
-        {
-            var keyList = new List<string>(XpacDict.Keys);
-            var rnd = new Random();
-            return XpacDict[keyList[rnd.Next(0, keyList.Count)]];
-        }
-        
-        /// <summary>
-        /// Constructor
-        /// </summary>
         public NewCharacter()
         {
-
         }
 
-        private enum ClassEnum
-        {
-            None = 0,
-            Warrior = 1 << 0,
-            Hunter = 1 << 1,
-            Rogue = 1 << 2,
-            Mage = 1 << 3,
-            Priest = 1 << 4,
-            Druid = 1 << 5,
-            Warlock = 1 << 6,
-            Paladin = 1 << 7,
-            Shaman = 1 << 8,
-            Death_Knight = 1 << 9,
-            Monk = 1 << 10,
-            Demon_Hunter = 1 << 11,
-            Evoker = 1 << 12
-        }
         // Array of all available races
         private readonly string[] Races = { "Human", "Orc", "Dwarf", "Undead", "Gnome", "Troll", "Night Elf", "Tauren", "Draenei", "Blood Elf", "Worgen", "Goblin", "Pandaren (Alliance)", "Pandaren (Horde)", "Void Elf", "Nightborne", "Lightforged Draenei", "Highmountain Tauren", "Dark Iron Dwarf", "Mag'har Orc", "Kul Tiran", "Zandalari Troll", "Mechagnome", "Vulpera", "Dracthyr (Alliance)", "Dracthyr (Horde)" };
 
-        private readonly Dictionary<string, ClassEnum> ClassMap = new Dictionary<string, ClassEnum>()
-        {
-            {"Human", ClassEnum.Warrior|ClassEnum.Hunter},
-        };
 
         // Array of actual class names and specs
         private readonly string[][] Classes = new string[][]
@@ -111,16 +89,16 @@ namespace WoW_Character_Generator
                 new string[] {"Holy", "Protection", "Retribution", "Paladin"},         // [7]
                 new string[] {"Elemental", "Enhancement", "Restoration", "Shaman"},    // [8]
                 new string[] {"Blood", "Frost", "Unholy", "Death Knight"},             // [9]
-                new string[] {"Mistweaver", "Brewmaster", "Windwalker", "Monk"},       // [10]
-                new string[] {"Havoc", "Vengeance", "Demon Hunter"},                   // [11]
-                new string[] {"Devastation", "Preservation", "Evoker"},                // [12]
+                new string[] {"Mistweaver", "Brewmaster", "Windwalker", "Monk"},       // [a]
+                new string[] {"Havoc", "Vengeance", "Demon Hunter"},                   // [b]
+                new string[] {"Devastation", "Preservation", "Evoker"},                // [c]
         };
         // Assigned IDs to classes array above
         private readonly string[] ClassIDs = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c" };
 
-        private readonly int Xpac;
-        private readonly int ClassRange;
-        private readonly int RaceRange;
+        private int Xpac;
+        private int ClassRange;
+        private int RaceRange;
 
 
         /// <summary>
@@ -130,7 +108,10 @@ namespace WoW_Character_Generator
         /// <param name="race"></param>
         public string CharacterSelect()
         {
-            var SelectedRace = RaceSelect();
+            Xpac = selectedExpansion.XpacID;
+            ClassRange = selectedExpansion.ClassRange;
+            RaceRange = selectedExpansion.RaceRange;
+            var SelectedRace = RaceSelect(RaceRange);
             var SelectedClass = ClassSelect(SelectedRace);
             var SelectedCharacter = String.Format("Race: {1}{0}Class: {2}", Environment.NewLine, SelectedRace, SelectedClass);
             return SelectedCharacter;
@@ -141,7 +122,7 @@ namespace WoW_Character_Generator
         /// </summary>
         /// <param name="xpac"></param>
         /// <param name="raceRange"></param>
-        private string RaceSelect()
+        private string RaceSelect(int RaceRange)
         {
             var randRace = new Random();
             return Races[randRace.Next(0, RaceRange)]; // Max 26 (excluded)           
@@ -731,6 +712,31 @@ namespace WoW_Character_Generator
             return String.Format("{0} {1}", selectedSpec, selectedBaseClass);
         }
 
+
+
+
+
+
+
+
+        [Flags]
+        private enum ClassEnum
+        {
+            None = 0,               // 0
+            Warrior = 1 >> 0,       // 1
+            Hunter = 1 >> 1,        // 10
+            Rogue = 1 >> 2,         // 100 
+            Mage = 1 >> 3,          // 1000
+            Priest = 1 >> 4,        // 10000 
+            Druid = 1 >> 5,         // 100000
+            Warlock = 1 >> 6,       // 1000000
+            Paladin = 1 >> 7,       // 10000000
+            Shaman = 1 >> 8,        // 100000000
+            Death_Knight = 1 >> 9,  // 1000000000
+            Monk = 1 >> 10,         // 10000000000
+            Demon_Hunter = 1 >> 11, // 100000000000
+            Evoker = 1 >> 12        // 1000000000000
+        }
 
     }
 }

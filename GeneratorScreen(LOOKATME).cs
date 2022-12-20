@@ -26,21 +26,21 @@ namespace WoW_Character_Generator
         {
             InitializeComponent();
         }
-
         NewCharacter character = new NewCharacter();
-        NewCharacter.Expansion currentExpansion;
+        NewCharacter.Expansion currentXpac = new NewCharacter.Expansion();
 
+        /// <summary>
+        /// Sets current expansion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExpansionChecked(object sender, EventArgs e)
         {
-            var rdoButton = (RadioButton)sender;
-            GenerateButton.Enabled = true;
             OutputCharacter.Text = "";
-            // Sets values for selected expansion or selects random expansion
-            if (rdoButton.Text == "Surprise Me!")
-                currentExpansion = character.GetRandomXpac();
-            else
-                currentExpansion = character.GetSpecificXpac(rdoButton.Text);
-            GenerateButton.Text = currentExpansion.Slogan;
+            var rdoButton = (RadioButton)sender;
+            currentXpac = character.GetXpac(rdoButton.Text);
+            GenerateButton.Text = currentXpac.Slogan;
+            GenerateButton.Enabled = true;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace WoW_Character_Generator
         /// <param name="e"></param>
         private void GenerateButton_Click(object sender, EventArgs e)
         {
-            if (currentExpansion.XpacID == 0)
+            if (currentXpac.XpacID == 0)
                 throw new Exception("Error! Expansion not selected.");
             OutputCharacter.Text = "";
             var newCharacter = character.CharacterSelect();
